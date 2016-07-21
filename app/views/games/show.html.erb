@@ -1,0 +1,18 @@
+<h1><%= @game.name %></h1>
+
+<p>
+  <%= render 'back' %>
+</p>
+
+<p>
+  <ul>
+    Recent matches:
+    <% @game.matches.each do |match| %>
+    <li><%= match.name %></li>
+    <% end %>
+  </ul>
+</p>
+
+<p>
+  <%= link_to "Delete me", @game, method: :delete, data: {confirm: "Are you sure you want to delete the game '#{@game.name}'? This cannot be undone!"} %>
+</p>

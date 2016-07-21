@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160721155315) do
+ActiveRecord::Schema.define(version: 20160721164714) do
 
   create_table "categories", force: :cascade do |t|
     t.string   "name"
@@ -29,7 +29,7 @@ ActiveRecord::Schema.define(version: 20160721155315) do
   create_table "matches", force: :cascade do |t|
     t.string   "score"
     t.text     "details"
-    t.integer  "game"
+    t.integer  "game_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.integer  "category_id"
