@@ -2,12 +2,26 @@ class GamesController < ApplicationController
   def index
     @games = Game.all
   end
+
   def show
     @game = Game.find(params[:id])
   end
 
   def new
     @game = Game.new
+  end
+
+  def edit
+    @game = Game.find(params[:id])
+  end
+
+  def update
+    @game = Game.find(params[:id])
+    if @game.update(game_params)
+      redirect_to action: :show, id: @game.id
+    else
+      redirect_to action: :edit
+    end
   end
 
   def create

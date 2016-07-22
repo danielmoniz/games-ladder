@@ -1,10 +1,9 @@
 Rails.application.routes.draw do
 
-  resources :games do
-    resources :teams
-    resources :categories do
-      resources :matches
-    end
+  resources :games
+  resources :teams
+  resources :categories do
+    resources :matches
   end
   resources :players
 

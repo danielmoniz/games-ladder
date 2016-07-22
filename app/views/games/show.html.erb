@@ -1,14 +1,14 @@
 <h1><%= @game.name %></h1>
 
 <p>
-  <%= render 'back' %>
+  <%= render 'back' %> | <%= link_to 'Edit', edit_game_path(@game) %>
 </p>
 
 <p>
   <ul>
     Recent matches:
-    <% @game.matches.each do |match| %>
-    <li><%= match.name %></li>
+    <% @game.recent_matches.each do |match| %>
+    <li><%= link_to "#{match.name} <i>(#{match.category.name})</i>", [match.category, match] %></li>
     <% end %>
   </ul>
 </p>

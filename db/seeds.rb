@@ -21,7 +21,7 @@ games.map do |game|
   Game.create(name: game)
 end
 
-n = 10
+n = 50
 
 n.times do |i|
   Player.create(
