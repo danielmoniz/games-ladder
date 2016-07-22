@@ -1,19 +1,5 @@
 Rails.application.routes.draw do
 
-  get 'matches/show'
-
-  get 'matches/destroy'
-
-  get 'matches/index'
-
-  get 'matches/create'
-
-  get 'matches/new'
-
-  get 'matches/edit'
-
-  get 'matches/update'
-
   root 'categories#index'
 
   resources :games

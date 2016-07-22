@@ -8,7 +8,7 @@
 
 require 'ffaker'
 
-categories = ["2015 Champions' League", "2016 World Tournament"]
+categories = ["Champions' League", "World Tournament"]
 categories.each do |category|
   Category.create(
     name: category,
@@ -31,6 +31,9 @@ n.times do |i|
   )
 end
 
+puts '--- 2-person teams/matches'
+duo_teams = []
+
 n.times do |i|
   team = Team.create(
     players: Player.all.sample(2),
@@ -38,6 +41,7 @@ n.times do |i|
   player_names = team.players.map { |player| player.name }
   team.name = player_names.join(' y ')
   team.save
+  duo_teams << team
 end
 
 n.times do |i|
@@ -45,7 +49,33 @@ n.times do |i|
     game: Game.all.sample,
     category: Category.all.sample,
   )
-  match.teams.concat Team.all.sample(2)
+  match.teams.concat duo_teams.sample(2)
+
+  result = MatchResult.create(
+    match: match,
+    winner: match.teams.sample,
+  )
+end
+
+puts '---single person teams/matches'
+single_teams = []
+
+n.times do |i|
+  team = Team.create(
+    players: [Player.all.sample],
+  )
+  player_names = team.players.map { |player| player.name }
+  team.name = player_names.join(' y ')
+  team.save
+  single_teams << team
+end
+
+n.times do |i|
+  match = Match.create(
+    game: Game.all.sample,
+    category: Category.all.sample,
+  )
+  match.teams.concat single_teams.sample(2)
 
   result = MatchResult.create(
     match: match,

@@ -1,0 +1,42 @@
+<h1><%= @team.name %></h1>
+
+<p>
+  <%= render 'back' %> | <%= link_to 'Edit', edit_team_path(@team) %>
+</p>
+
+<p>
+  <h2>Record: <%= @team.wins.count %>-<%= @team.losses.count %></h2>
+</p>
+
+<p>
+  <ul>
+    <h2>Recent matches:</h2>
+    <% @team.recent_matches.each do |match| %>
+    <li><%= link_to "#{match.name}", [match.category, match] %> -
+      <%= match.created_at.strftime '%Y-%m-%d' %>
+      <i>(<%= match.category.name %>)</i></li>
+    <% end %>
+  </ul>
+</p>
+
+<p>
+  <ul>
+    <h2>Wins:</h2>
+    <% @team.wins.each do |result| %>
+    <li><%= result.match.name %></li>
+    <% end %>
+  </ul>
+</p>
+
+<p>
+  <ul>
+    <h2>Losses:</h2>
+    <% @team.losses.each do |result| %>
+    <li><%= result.match.name %></li>
+    <% end %>
+  </ul>
+</p>
+
+<p>
+  <%= link_to "Delete me", @team, method: :delete, data: {confirm: "Are you sure you want to delete the team '#{@team.name}'? This cannot be undone!"} %>
+</p>
