@@ -46,4 +46,9 @@ n.times do |i|
     category: Category.all.sample,
   )
   match.teams.concat Team.all.sample(2)
+
+  result = MatchResult.create(
+    match: match,
+    winner: match.teams.sample,
+  )
 end
