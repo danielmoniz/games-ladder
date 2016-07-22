@@ -1,0 +1,18 @@
+<h1><%= @category.name %></h1>
+
+<p>
+  <%= render 'back' %> | <%= link_to 'Edit', edit_category_path(@category) %>
+</p>
+
+<p>
+  <ul>
+    Recent matches:
+    <% @category.recent_matches.each do |match| %>
+    <li><%= link_to "#{match.name}", [match.category, match] %> <i>(<%= match.category.name %>)</i></li>
+    <% end %>
+  </ul>
+</p>
+
+<p>
+  <%= link_to "Delete me", @category, method: :delete, data: {confirm: "Are you sure you want to delete the category '#{@category.name}'? This cannot be undone!"} %>
+</p>

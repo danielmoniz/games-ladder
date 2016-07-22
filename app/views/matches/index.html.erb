@@ -1,0 +1,13 @@
+<h1>Matches</h1>
+
+<p>
+  <%= link_to 'New match', new_category_match_path %>
+</p>
+
+<ul>
+<% @matches.each do |match| %>
+  <li>
+    <%= link_to match.name, [match.category, match] %>
+  </li>
+<% end %>
+</ul>

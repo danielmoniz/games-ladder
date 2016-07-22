@@ -1,0 +1,14 @@
+<h1><%= @match.name %></h1>
+
+<p>
+  <%= render 'back' %> | <%= link_to 'Edit', edit_category_match_path() %>
+</p>
+
+<p>
+    <h3>Details:</h3>
+    <p><%= @match.name %></p>
+</p>
+
+<p>
+  <%= link_to "Delete me", [@match.category, @match], method: :delete, data: {confirm: "Are you sure you want to delete the match '#{@match.name}'? This cannot be undone!"} %>
+</p>

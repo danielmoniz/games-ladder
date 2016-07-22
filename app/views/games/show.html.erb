@@ -8,7 +8,7 @@
   <ul>
     Recent matches:
     <% @game.recent_matches.each do |match| %>
-    <li><%= link_to "#{match.name} <i>(#{match.category.name})</i>", [match.category, match] %></li>
+    <li><%= link_to "#{match.name}", [match.category, match] %> <i>(<%= match.category.name %>)</i></li>
     <% end %>
   </ul>
 </p>

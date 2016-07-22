@@ -1,0 +1,7 @@
+<h1>Edit <%= @match.name %></h1>
+
+<p>
+  <%= link_to "Back to #{@match.name}", [@match.category, @match] %>
+</p>
+
+<%= render 'form' %>
