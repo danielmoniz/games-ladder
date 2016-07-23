@@ -1,4 +1,8 @@
 class MatchesController < ApplicationController
+  before_action do |controller|
+    @category = Category.find(params[:category_id])
+  end
+
   def index
     @matches = Match.order(created_at: :desc).limit(50)
   end
@@ -26,6 +30,17 @@ class MatchesController < ApplicationController
 
   def create
     @match = Match.new(match_params)
+    @match.category = @category
+    players = params[:player]
+
+    players.each do |team, player_ids|
+      team = Team.new()
+      player_ids.each do |id|
+        if id == ""; next; end
+        team.players << Player.find(id)
+      end
+      @match.teams << team
+    end
 
     if @match.save
       redirect_to action: :show, id: @match.id
@@ -45,6 +60,6 @@ class MatchesController < ApplicationController
   end
 
   def match_params
-    params.require(:match).permit(:name, :status)
+    params.require(:match).permit(:name, :details, :score, :game_id)
   end
 end

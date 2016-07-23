@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160722011401) do
+ActiveRecord::Schema.define(version: 20160723045303) do
 
   create_table "categories", force: :cascade do |t|
     t.string   "name"
@@ -41,6 +41,7 @@ ActiveRecord::Schema.define(version: 20160722011401) do
     t.datetime "updated_at",      null: false
     t.integer  "category_id"
     t.integer  "match_result_id"
+    t.string   "name"
   end
 
   create_table "matches_teams", id: false, force: :cascade do |t|
@@ -72,7 +73,6 @@ ActiveRecord::Schema.define(version: 20160722011401) do
   add_index "players_teams", ["team_id"], name: "index_players_teams_on_team_id"
 
   create_table "teams", force: :cascade do |t|
-    t.integer  "match_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string   "name"

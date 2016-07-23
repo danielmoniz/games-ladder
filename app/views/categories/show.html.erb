@@ -5,6 +5,10 @@
 </p>
 
 <p>
+  <%= link_to 'New match', new_category_match_path(@category) %>
+</p>
+
+<p>
   <ul>
     Recent matches:
     <% @category.recent_matches.each do |match| %>

@@ -1,7 +1,39 @@
-<%= form_for [@match.category, @match] do |f| %>
-  <p>
+
+<%= form_for [@category, @match] do |f| %>
+
+  <!-- <p>
     <%= f.label :name %>
     <%= f.text_field :name %>
+  </p> -->
+
+  <p>
+    <%= f.label :game %>
+    <%= collection_select :match, :game_id, @category.games, :id, :name %>
+  </p>
+
+  <h2>Team 1</h2>
+  <p>
+    <%= label_tag 'Player' %>
+    <%= collection_select :player, :player_id, @category.players.order(name: :asc), :id, :name, {include_blank: true}, {name: "player[0][]"} %>
+  </p>
+  <p>
+    <%= label_tag 'Player' %>
+    <%= collection_select :player, :player_id, @category.players.order(name: :asc), :id, :name, {include_blank: true}, {name: "player[0][]"} %>
+  </p>
+
+  <h2>Team 2</h2>
+  <p>
+    <%= label_tag 'Player' %>
+    <%= collection_select :player, :player_id, @category.players.order(name: :asc), :id, :name, {include_blank: true}, {name: "player[1][]"} %>
+  </p>
+  <p>
+    <%= label_tag 'Player' %>
+    <%= collection_select :player, :player_id, @category.players.order(name: :asc), :id, :name, {include_blank: true}, {name: "player[1][]"} %>
+  </p>
+
+  <p>
+    <%= f.label :details %>
+    <%= f.text_area :details %>
   </p>
 
   <p>
@@ -9,3 +41,11 @@
   </p>
 
 <% end %>
+
+<div id="add_player_html" style="display: none;">
+  <%= render 'add_player', team_num: 0 %>
+</div>
+
+<div id="add_team_html" style="display: none;">
+  <%= render 'add_team' %>
+</div>

@@ -16,4 +16,12 @@ class Team < ActiveRecord::Base
   def losses
     self.results.where('winner_id != ?', self.id).order(created_at: :desc)
   end
+
+  def name
+    if self.read_attribute(:name)
+      return self.read_attribute(:name)
+    end
+    names = self.players.map { |player| player.name }
+    names.join(' y ')
+  end
 end
