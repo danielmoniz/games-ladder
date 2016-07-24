@@ -11,25 +11,14 @@
     <%= collection_select :match, :game_id, @category.games, :id, :name %>
   </p>
 
-  <h2>Team 1</h2>
-  <p>
-    <%= label_tag 'Player' %>
-    <%= collection_select :player, :player_id, @category.players.order(name: :asc), :id, :name, {include_blank: true}, {name: "player[0][]"} %>
-  </p>
-  <p>
-    <%= label_tag 'Player' %>
-    <%= collection_select :player, :player_id, @category.players.order(name: :asc), :id, :name, {include_blank: true}, {name: "player[0][]"} %>
-  </p>
+  <% @match.teams.each_with_index do |team, i| %>
+    <%= render team, team_id: i %>
+  <% end %>
 
-  <h2>Team 2</h2>
-  <p>
-    <%= label_tag 'Player' %>
-    <%= collection_select :player, :player_id, @category.players.order(name: :asc), :id, :name, {include_blank: true}, {name: "player[1][]"} %>
-  </p>
-  <p>
-    <%= label_tag 'Player' %>
-    <%= collection_select :player, :player_id, @category.players.order(name: :asc), :id, :name, {include_blank: true}, {name: "player[1][]"} %>
-  </p>
+  <% if @match.teams.count == 0 %>
+    <%= render Team.new, team_id: 0 %>
+    <%= render Team.new, team_id: 1 %>
+  <% end %>
 
   <p>
     <%= f.label :details %>

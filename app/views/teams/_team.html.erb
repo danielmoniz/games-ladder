@@ -1,0 +1,10 @@
+
+<h2>Team <%= team_id + 1 %></h2>
+<p>
+  <%= label_tag 'Player' %>
+  <%= collection_select :player, :player_id, @category.players.order(name: :asc), :id, :name, {include_blank: true}, {name: "player[#{team_id}][]"} %>
+</p>
+<p>
+  <%= label_tag 'Player' %>
+  <%= collection_select :player, :player_id, @category.players.order(name: :asc), :id, :name, {include_blank: true}, {name: "player[#{team_id}][]"} %>
+</p>
