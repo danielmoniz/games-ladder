@@ -2,12 +2,17 @@ Rails.application.routes.draw do
 
   root 'categories#index'
 
+  resources :players
   resources :games
   resources :teams
   resources :categories do
     resources :matches
   end
   resources :players
+
+  resources :sessions
+  get 'login' => 'sessions#new', :as => :login
+  post 'logout' => 'sessions#destroy', :as => :logout
 
 
 

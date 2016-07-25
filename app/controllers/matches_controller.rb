@@ -3,6 +3,8 @@ class MatchesController < ApplicationController
     @category = Category.find(params[:category_id])
   end
 
+  before_action :require_login, only: [:new, :create, :edit, :update]
+
   def index
     @matches = Match.order(created_at: :desc).limit(50)
   end
@@ -73,6 +75,10 @@ class MatchesController < ApplicationController
   end
 
   private
+
+  def my_require_login
+
+  end
 
   def get_existing_team(player_ids)
     # is this the most efficient way to do this?

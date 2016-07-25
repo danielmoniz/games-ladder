@@ -1,0 +1,5 @@
+
+<p>
+  <%= label_tag 'Team' %>
+  <%= collection_select :team, :team_id, @category.teams.order(name: :asc), :id, :name, {include_blank: true}, {name: 'team[]'} %>
+</p>

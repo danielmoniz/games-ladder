@@ -1,0 +1,18 @@
+<h1><%= @player.name %></h1>
+
+<p>
+  <%= render 'back' %> | <%= link_to 'Edit', edit_player_path(@player) %>
+</p>
+
+<p>
+  <ul>
+    Recent matches:
+    <% @player.recent_matches.each do |match| %>
+    <li><%= link_to "#{match.name}", [match.category, match] %> <i>(<%= match.category.name %>, <%= match.game.name %>)</i></li>
+    <% end %>
+  </ul>
+</p>
+
+<p>
+  <%= link_to "Delete me", @player, method: :delete, data: {confirm: "Are you sure you want to delete the player '#{@player.name}'? This cannot be undone!"} %>
+</p>
