@@ -11,7 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160723045303) do
+ActiveRecord::Schema.define(version: 20160728153032) do
+
+  create_table "authentications", force: :cascade do |t|
+    t.integer  "user_id",    null: false
+    t.string   "provider",   null: false
+    t.string   "uid",        null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "authentications", ["provider", "uid"], name: "index_authentications_on_provider_and_uid"
 
   create_table "categories", force: :cascade do |t|
     t.string   "name"
@@ -53,16 +63,20 @@ ActiveRecord::Schema.define(version: 20160723045303) do
   add_index "matches_teams", ["team_id"], name: "index_matches_teams_on_team_id"
 
   create_table "players", force: :cascade do |t|
-    t.string   "email",            null: false
+    t.string   "email",                        null: false
     t.string   "crypted_password"
     t.string   "salt"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "name"
-    t.string   "favourite_game"
+    t.integer  "favourite_game_id"
+    t.string   "remember_me_token"
+    t.datetime "remember_me_token_expires_at"
+    t.integer  "favourite_category_id"
   end
 
   add_index "players", ["email"], name: "index_players_on_email", unique: true
+  add_index "players", ["remember_me_token"], name: "index_players_on_remember_me_token"
 
   create_table "players_teams", id: false, force: :cascade do |t|
     t.integer "player_id", null: false

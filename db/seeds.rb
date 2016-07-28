@@ -24,10 +24,14 @@ end
 n = 50
 
 n.times do |i|
+  password = FFaker::Internet.password
   Player.create(
     email: FFaker::Internet.safe_email,
+    password: password,
+    password_confirmation: password,
     name: FFaker::NameMX.name,
-    favourite_game: games.sample,
+    favourite_game: Game.all.sample,
+    favourite_category: Category.all.sample,
   )
 end
 
@@ -57,6 +61,10 @@ n.times do |i|
   )
 end
 
+puts Team.take
+puts Player.take
+puts Match.take
+
 puts '---single person teams/matches'
 single_teams = []
 
@@ -69,6 +77,8 @@ n.times do |i|
   team.save
   single_teams << team
 end
+
+puts '*'*20
 
 n.times do |i|
   match = Match.create(

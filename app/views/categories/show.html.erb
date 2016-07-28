@@ -9,6 +9,10 @@
 </p>
 
 <p>
+  <%= link_to 'Sign in with Google', auth_at_provider_path(:provider => :google) %>
+</p>
+
+<p>
   <ul>
     Recent matches:
     <% @category.recent_matches.each do |match| %>
