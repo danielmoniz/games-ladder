@@ -6,8 +6,10 @@
 
 <p>
   <ul>
-    Recent matches:
-    <% @game.recent_matches.each do |match| %>
+    <h3>Recent matches:</h3>
+    <% recent_matches = @game.recent_matches %>
+    <% if @category; recent_matches = @game.recent_matches_in_category(@category); end %>
+    <% recent_matches.each do |match| %>
     <li><%= link_to "#{match.name}", [match.category, match] %> <i>(<%= match.category.name %>)</i></li>
     <% end %>
   </ul>

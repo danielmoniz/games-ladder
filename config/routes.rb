@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   resources :teams
   resources :categories do
     resources :matches
+    resources :games
   end
 
   resources :sessions

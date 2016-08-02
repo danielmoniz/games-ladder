@@ -13,14 +13,23 @@
 </p>
 
 <p>
-  <%= link_to "Subscribe to #{category.name}", new_category_match_path(@category) %>
+  <%= link_to "Subscribe to #{@category.name}", new_category_match_path(@category) %>
 </p>
 
 <p>
   <ul>
-    Recent matches:
+    <h3>Recent matches:</h3>
     <% @category.recent_matches.each do |match| %>
-    <li><%= link_to "#{match.name}", [match.category, match] %> <i>(<%= match.category.name %>, <%= match.game.name %>)</i></li>
+      <li><%= link_to "#{match.name}", [match.category, match] %> <i>(<%= match.category.name %>, <%= match.game.name %>)</i></li>
+    <% end %>
+  </ul>
+</p>
+
+<p>
+  <ul>
+    <h3>Games:</h3>
+    <% @games.each do |game| %>
+      <li><%= link_to game.name, category_game_path(@category, game) %></li>
     <% end %>
   </ul>
 </p>
