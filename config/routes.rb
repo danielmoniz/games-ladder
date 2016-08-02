@@ -1,18 +1,23 @@
 Rails.application.routes.draw do
 
+  get 'group_subscriptions/create'
+
+  get 'group_subscriptions/destroy'
+
   get 'oauths/oauth'
 
   get 'oauths/callback'
 
   root 'categories#index'
 
-  resources :players
+  resources :players do
+    resources :category_subscriptions, only: [:create, :destroy], path: 'subscriptions', as: 'subscriptions'
+  end
   resources :games
   resources :teams
   resources :categories do
     resources :matches
   end
-  resources :players
 
   resources :sessions
   get 'login' => 'sessions#new', :as => :login

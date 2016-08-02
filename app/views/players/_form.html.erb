@@ -7,6 +7,10 @@
     <%= f.label :email %>
     <%= f.text_field :email %>
   </p>
+  <p>
+    <%= f.label 'Home Group' %>
+    <%= collection_select :player, :favourite_category_id, @player.categories, :id, :name %>
+  </p>
 
   <p>
     <%= f.submit %>

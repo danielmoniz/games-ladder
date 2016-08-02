@@ -45,6 +45,6 @@ class PlayersController < ApplicationController
   end
 
   def player_params
-    params.require(:player).permit(:name, :email, :password, :password_confirmation)
+    params.require(:player).permit(:name, :email, :password, :password_confirmation, :favourite_category_id)
   end
 end

@@ -11,6 +11,7 @@ class Player < ActiveRecord::Base
 
   belongs_to :favourite_game, class_name: 'Game', foreign_key: :favourite_game_id
   belongs_to :favourite_category, class_name: 'Category', foreign_key: :favourite_category_id
+  has_and_belongs_to_many :categories
 
   validates :password, length: { minimum: 3 }, if: -> { new_record? || changes[:crypted_password] }
   validates :password, confirmation: true, if: -> { new_record? || changes[:crypted_password] }
