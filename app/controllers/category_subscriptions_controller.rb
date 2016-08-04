@@ -3,18 +3,22 @@ class CategorySubscriptionsController < ApplicationController
 
   def create
     category = Category.find(params[:category_id])
-    # @TODO Ensure people do not subscribe twice
-    # category_subscription = CategorySubscription.new
     category.players << current_user
-    # current_user.categories << category
     redirect_back_or_to category, notice: "Subscribed to #{category.name}."
   end
 
   def destroy
+    # @TODO Ensure favourite category data is destroyed as well
+    subscription = CategorySubscription.find_by(subscription_params)
+    if subscription
+      subscription.destroy
+      redirect_back_or_to current_user, notice: "Removed subscription to #{subscription.category.name}."
+    end
+    redirect_back_or_to current_user, notice: "No subscription removed."
   end
 
   private
   def subscription_params
-    params.permit(:category_id)
+    params.permit(:player_id, :id)
   end
 end

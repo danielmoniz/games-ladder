@@ -24,6 +24,15 @@
 
 <% end %>
 
+
+<h3>Your Groups</h3>
+<ul>
+  <% @player.categories.each do |category| %>
+    <li><%= link_to category.name, category %> <%= link_to "(remove)", player_subscription_path(@player, category), method: :delete, data: {confirm: "Are you sure you want to remove this subscription '#{category.name}'? This cannot be undone!"} %></li>
+  <% end %>
+</ul>
+
+
 <%= form_for @player do |f| %>
   <p>
     <%= f.label :password %>
