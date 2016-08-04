@@ -61,10 +61,6 @@ n.times do |i|
   )
 end
 
-puts Team.take
-puts Player.take
-puts Match.take
-
 puts '---single person teams/matches'
 single_teams = []
 

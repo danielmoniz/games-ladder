@@ -11,6 +11,12 @@
     <%= f.label 'Home Group' %>
     <%= collection_select :player, :favourite_category_id, @player.categories, :id, :name %>
   </p>
+  <% if not @player.games.empty? %>
+    <p>
+      <%= f.label 'Favourite Game' %>
+      <%= collection_select :player, :favourite_game_id, @player.games, :id, :name %>
+    </p>
+  <% end %>
 
   <p>
     <%= f.submit %>

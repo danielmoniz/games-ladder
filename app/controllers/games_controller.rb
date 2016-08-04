@@ -5,7 +5,9 @@ class GamesController < ApplicationController
 
   def show
     @game = Game.find(params[:id])
-    @category = Category.find(params[:category_id])
+    if params[:category_id]
+      @category = Category.find(params[:category_id])
+    end
   end
 
   def new

@@ -3,15 +3,18 @@ class Player < ActiveRecord::Base
     config.authentications_class = Authentication
   end
 
-  has_many :authentications, :dependent => :destroy
+  has_many :authentications, :dependent => :destroy, foreign_key: 'user_id'
   accepts_nested_attributes_for :authentications
 
   has_and_belongs_to_many :teams
   has_many :matches, through: :teams
+  has_many :games, -> { uniq }, through: :matches
 
   belongs_to :favourite_game, class_name: 'Game', foreign_key: :favourite_game_id
   belongs_to :favourite_category, class_name: 'Category', foreign_key: :favourite_category_id
-  has_and_belongs_to_many :categories
+
+  has_many :category_subscriptions
+  has_many :categories, through: :category_subscriptions
 
   validates :password, length: { minimum: 3 }, if: -> { new_record? || changes[:crypted_password] }
   validates :password, confirmation: true, if: -> { new_record? || changes[:crypted_password] }

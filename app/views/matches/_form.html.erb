@@ -8,7 +8,8 @@
 
   <p>
     <%= f.label :game %>
-    <%= collection_select :match, :game_id, @category.games, :id, :name %>
+    <%#= collection_select :match, :game_id, @category.games, :id, :name %>
+    <%= collection_select :match, :game_id, Game.all, :id, :name %>
   </p>
 
   <% @match.teams.each_with_index do |team, i| %>

@@ -1,16 +1,23 @@
 <h1><%= @game.name %></h1>
+<% if @category %>
+  <h2><%= @category.name %></h2>
+<% end %>
 
 <p>
-  <%= render 'back' %> | <%= link_to 'Edit', edit_game_path(@game) %>
+  <% if @category %>
+    <%= link_to "View #{@category.name}", @category %> |
+  <% end %>
+  <%= render 'back' %> | <%= link_to "Edit #{@game.name}", edit_game_path(@game) %>
 </p>
 
 <p>
   <ul>
     <h3>Recent matches:</h3>
-    <% recent_matches = @game.recent_matches %>
-    <% if @category; recent_matches = @game.recent_matches_in_category(@category); end %>
-    <% recent_matches.each do |match| %>
-    <li><%= link_to "#{match.name}", [match.category, match] %> <i>(<%= match.category.name %>)</i></li>
+    <% @game.recent_matches(@category).each do |match| %>
+    <li><%= link_to "#{match.name}", [match.category, match] %>
+      <% if not @category %>
+        <i>(<%= match.category.name %>)</i></li>
+      <% end %>
     <% end %>
   </ul>
 </p>

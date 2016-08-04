@@ -6,7 +6,7 @@ class MatchesController < ApplicationController
   before_action :require_login, only: [:new, :create, :edit, :update]
 
   def index
-    @matches = Match.order(created_at: :desc).limit(50)
+    @matches = Match.order(created_at: :desc).limit(75)
   end
 
   def show

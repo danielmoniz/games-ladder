@@ -10,8 +10,15 @@
 
   <div id="nav">
     <% if current_user %>
-      <%= link_to "Edit Profile", edit_player_path(current_user.id) %>
+      <%= link_to "Edit Profile", edit_player_path(current_user.id) %> |
       <%= link_to "Logout", :logout, method: :post %>
+      <% if current_user.favourite_category %>
+        | <%= link_to current_user.favourite_category.name, current_user.favourite_category %>
+      <% end %>
+      <% if current_user.favourite_game %>
+        | <%= link_to current_user.favourite_game.name, current_user.favourite_game %>
+      <% end %>
+
     <% else %>
       <%= link_to "Register", new_player_path %> |
       <%= link_to "Login", :login %> |

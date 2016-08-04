@@ -4,7 +4,12 @@ class OauthsController < ApplicationController
   # sends the user on a trip to the provider,
   # and after authorizing there back to the callback url.
   def oauth
+    puts '*'*50
+    puts session[:category]
+    session[:category] = nil
     session[:category] = params[:category]
+    puts '*'*50
+    puts session[:category]
     login_at(auth_params[:provider])
   end
 
@@ -20,13 +25,15 @@ class OauthsController < ApplicationController
       return
     end
     if @user
+      puts @user.inspect
       go_to_category(@user, notice: "Logged in from #{provider.titleize}!")
       # redirect_to category_path(nil), :notice => "Logged in from #{provider.titleize}!"
     else
       begin
         @user = create_from(provider)
-        if session[:category].to_i
+        if session[:category]
           @user.favourite_category = Category.find(session[:category].to_i)
+          session[:category] = nil
         end
         # NOTE: this is the place to add '@user.activate!' if you are using user_activation submodule
         reset_session # protect from session fixation attack
@@ -51,10 +58,13 @@ class OauthsController < ApplicationController
 
   def go_to_category(user, messages)
     if user and user.favourite_category
+      puts 'user and user.favourite_category'
       redirect_to category_path(user.favourite_category_id), messages
     elsif session[:category]
+      puts 'session[:category]'
       redirect_to category_path(session[:category]), messages
     else
+      puts 'else'
       redirect_to categories_path, messages
     end
   end

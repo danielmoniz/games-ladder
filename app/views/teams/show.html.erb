@@ -8,13 +8,22 @@
   <h2>Record: <%= @team.wins.count %>-<%= @team.losses.count %></h2>
 </p>
 
+<div class="team_members">
+  <ul>
+    <h3>Members:</h3>
+    <% @team.players.each do |player| %>
+      <li><%= link_to player.name, player %></li>
+    <% end %>
+  </ul>
+</div>
+
 <p>
   <ul>
     <h2>Recent matches:</h2>
     <% @team.recent_matches.each do |match| %>
-    <li><%= link_to "#{match.name}", [match.category, match] %> -
-      <%= match.created_at.strftime '%Y-%m-%d' %>
-      <i>(<%= match.category.name %>)</i></li>
+      <li><%= link_to "#{match.name}", [match.category, match] %> -
+        <%= match.created_at.strftime '%Y-%m-%d' %>
+        <i>(<%= match.category.name %>)</i></li>
     <% end %>
   </ul>
 </p>
