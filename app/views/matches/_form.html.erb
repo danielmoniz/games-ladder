@@ -25,7 +25,7 @@
       <p>
         <%= f.label "Existing team" %>
         <%#= collection_select :match, :game_id, @category.games, :id, :name %>
-        <%= collection_select :team, :team_id, Team.size_at_least(2), :id, :name, {include_blank: true} %>
+        <%= collection_select :team, :team_id, Team.size_at_least(2), :id, :name, {include_blank: true}, {name: "team[#{i}]"} %>
       </p>
     <% end %>
   <% end %>

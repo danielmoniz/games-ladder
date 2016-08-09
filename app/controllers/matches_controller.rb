@@ -36,21 +36,30 @@ class MatchesController < ApplicationController
     @match = Match.new(match_params)
     @match.category = @category
     players = params[:player]
+    teams = params[:team]
 
     players.each do |team, player_ids|
+      if teams[team] != ''
+        team = Team.find(teams[team])
+        @match.teams << team
+        next
+      end
+
       team = get_existing_team(player_ids)
       if team
         @match.teams << team
         next
       end
 
-      team = Team.new()
+      team = Team.new();
       player_ids.each do |id|
         if id == ""; next; end
         team.players << Player.find(id)
       end
 
-      @match.teams << team
+      if team.players.count > 0
+        @match.teams << team
+      end
     end
 
     if @match.save
