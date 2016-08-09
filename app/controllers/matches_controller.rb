@@ -1,9 +1,8 @@
 class MatchesController < ApplicationController
+  before_action :require_login, only: [:new, :create, :edit, :update]
   before_action do |controller|
     @category = Category.find(params[:category_id])
   end
-
-  before_action :require_login, only: [:new, :create, :edit, :update]
 
   def index
     @matches = Match.order(created_at: :desc).limit(75)
@@ -15,6 +14,7 @@ class MatchesController < ApplicationController
 
   def new
     @match = Match.new
+    @game_id = params[:game_id]
   end
 
   # @TODO Needs to auto-populate the view with pre-selected teams

@@ -10,7 +10,13 @@ class Match < ActiveRecord::Base
     if self.read_attribute(:name)
       return self.read_attribute(:name)
     end
-    names = self.teams.map { |team| "'#{team.name}'" }
+    names = self.teams.map do |team|
+      if team.players.count > 1
+        "'#{team.name}'"
+      else
+        "#{team.name}"
+      end
+    end
     names.join(' vs ')
   end
 end

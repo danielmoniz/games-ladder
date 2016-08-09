@@ -10,6 +10,12 @@
   <%= render 'back' %> | <%= link_to "Edit #{@game.name}", edit_game_path(@game) %>
 </p>
 
+<% if @category %>
+  <p>
+    <%= link_to 'New match', new_category_match_path(@category, game_id: @game) %>
+  </p>
+<% end %>
+
 <p>
   <ul>
     <h3>Recent matches:</h3>

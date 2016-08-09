@@ -1,8 +1,13 @@
 
 <h2>Team <%= team_id + 1 %></h2>
+
 <p>
   <%= label_tag 'Player' %>
-  <%= collection_select :player, :player_id, @category.players.order(name: :asc), :id, :name, {include_blank: true}, {name: "player[#{team_id}][]"} %>
+  <% if team_id == 0 and current_user %>
+    <%= collection_select :player, :player_id, @category.players.order(name: :asc), :id, :name, {selected: current_user.id, include_blank: true}, {name: "player[#{team_id}][]"} %>
+  <% else %>
+    <%= collection_select :player, :player_id, @category.players.order(name: :asc), :id, :name, {include_blank: true}, {name: "player[#{team_id}][]"} %>
+  <% end %>
 </p>
 <p>
   <%= label_tag 'Player' %>

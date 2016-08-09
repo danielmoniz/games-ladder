@@ -9,16 +9,25 @@
   <p>
     <%= f.label :game %>
     <%#= collection_select :match, :game_id, @category.games, :id, :name %>
-    <%= collection_select :match, :game_id, Game.all, :id, :name %>
+    <%= collection_select :match, :game_id, Game.all, :id, :name, selected: @game_id %>
   </p>
 
   <% @match.teams.each_with_index do |team, i| %>
     <%= render team, team_id: i %>
   <% end %>
 
-  <% if @match.teams.count == 0 %>
-    <%= render Team.new, team_id: 0 %>
-    <%= render Team.new, team_id: 1 %>
+  <% if @match.teams.count < 2 %>
+    <% (2 - @match.teams.count).times do |i| %>
+      <%= render Team.new, team_id: i %>
+      <p>
+        OR
+      </p>
+      <p>
+        <%= f.label "Existing team" %>
+        <%#= collection_select :match, :game_id, @category.games, :id, :name %>
+        <%= collection_select :team, :team_id, Team.size_at_least(2), :id, :name, {include_blank: true} %>
+      </p>
+    <% end %>
   <% end %>
 
   <p>

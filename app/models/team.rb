@@ -24,4 +24,11 @@ class Team < ActiveRecord::Base
     names = self.players.map { |player| player.name }
     names.join(' y ')
   end
+
+  # @TODO This is brutally inefficient
+  def self.size_at_least(size)
+    self.order(name: :asc).select do |team|
+      team.players.count >= size
+    end
+  end
 end
