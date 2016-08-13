@@ -37,17 +37,24 @@ class MatchesController < ApplicationController
     @match.category = @category
     players = params[:player]
     teams = params[:team]
+    teams_map = teams.map { |key, id| [key, id] }
+    teams_map = teams_map.to_h
+    puts teams_map
 
-    players.each do |team, player_ids|
-      if teams[team] != ''
-        team = Team.find(teams[team])
+    players.each do |team_number, player_ids|
+      team_number = team_number
+      puts team_number
+      if teams[team_number] != ''
+        team = Team.find(teams[team_number].to_i)
         @match.teams << team
+        teams_map[team_number] = team
         next
       end
 
       team = get_existing_team(player_ids)
       if team
         @match.teams << team
+        teams_map[team_number] = team
         next
       end
 
@@ -59,7 +66,16 @@ class MatchesController < ApplicationController
 
       if team.players.count > 0
         @match.teams << team
+        teams_map[team_number] = team
       end
+    end
+
+    winner = params[:winner]
+    if winner and winner != ""
+      result = MatchResult.create(
+        match: @match,
+        winner: teams_map[winner.to_i],
+      )
     end
 
     if @match.save

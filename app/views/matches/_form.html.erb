@@ -36,6 +36,11 @@
   </p>
 
   <p>
+    <%= f.label 'Winning team' %>
+    <%= select_tag :winner, options_for_select((1..2).map { |num| [num, num - 1] }), include_blank: true %>
+  </p>
+
+  <p>
     <%= f.submit %>
   </p>
 
