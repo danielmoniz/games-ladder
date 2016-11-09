@@ -2,6 +2,10 @@
 
 one:
   winner_id: 1
+  points_per_game: 1
+  team_sizes: MyString
 
 two:
   winner_id: 1
+  points_per_game: 1
+  team_sizes: MyString

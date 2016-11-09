@@ -4,19 +4,12 @@ class OauthsController < ApplicationController
   # sends the user on a trip to the provider,
   # and after authorizing there back to the callback url.
   def oauth
-    puts '*'*50
-    puts session[:category]
     session[:category] = nil
     session[:category] = params[:category]
-    puts '*'*50
-    puts session[:category]
     login_at(auth_params[:provider])
   end
 
   def callback
-    puts '-'*30
-    puts session[:category]
-    puts '-'*30
     provider = auth_params[:provider]
     begin
       @user = login_from(provider)
@@ -25,7 +18,6 @@ class OauthsController < ApplicationController
       return
     end
     if @user
-      puts @user.inspect
       go_to_category(@user, notice: "Logged in from #{provider.titleize}!")
       # redirect_to category_path(nil), :notice => "Logged in from #{provider.titleize}!"
     else
@@ -58,13 +50,10 @@ class OauthsController < ApplicationController
 
   def go_to_category(user, messages)
     if user and user.favourite_category
-      puts 'user and user.favourite_category'
       redirect_to category_path(user.favourite_category_id), messages
     elsif session[:category]
-      puts 'session[:category]'
       redirect_to category_path(session[:category]), messages
     else
-      puts 'else'
       redirect_to categories_path, messages
     end
   end

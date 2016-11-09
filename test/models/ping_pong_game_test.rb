@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class MatchResultTest < ActiveSupport::TestCase
+class PingPongGameTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

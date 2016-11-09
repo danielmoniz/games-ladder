@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160804170426) do
+ActiveRecord::Schema.define(version: 20160813171900) do
 
   create_table "authentications", force: :cascade do |t|
     t.integer  "user_id",    null: false
@@ -38,6 +38,14 @@ ActiveRecord::Schema.define(version: 20160804170426) do
     t.datetime "updated_at",  null: false
   end
 
+  create_table "foosball_match_results", force: :cascade do |t|
+    t.integer  "winner_id"
+    t.integer  "points_per_game"
+    t.string   "team_sizes"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
   create_table "games", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at", null: false
@@ -55,12 +63,15 @@ ActiveRecord::Schema.define(version: 20160804170426) do
     t.string   "score"
     t.text     "details"
     t.integer  "game_id"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
     t.integer  "category_id"
-    t.integer  "match_result_id"
     t.string   "name"
+    t.integer  "match_result_id"
+    t.string   "match_result_type"
   end
+
+  add_index "matches", ["match_result_type", "match_result_id"], name: "index_matches_on_match_result_type_and_match_result_id"
 
   create_table "matches_teams", id: false, force: :cascade do |t|
     t.integer "team_id",  null: false
@@ -69,6 +80,28 @@ ActiveRecord::Schema.define(version: 20160804170426) do
 
   add_index "matches_teams", ["match_id"], name: "index_matches_teams_on_match_id"
   add_index "matches_teams", ["team_id"], name: "index_matches_teams_on_team_id"
+
+  create_table "ping_pong_games", force: :cascade do |t|
+    t.integer  "team_1_score"
+    t.integer  "team_2_score"
+    t.integer  "team_1_id"
+    t.integer  "team_2_id"
+    t.integer  "ping_pong_match_result_id"
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+  end
+
+  add_index "ping_pong_games", ["ping_pong_match_result_id"], name: "index_ping_pong_games_on_ping_pong_match_result_id"
+  add_index "ping_pong_games", ["team_1_id"], name: "index_ping_pong_games_on_team_1_id"
+  add_index "ping_pong_games", ["team_2_id"], name: "index_ping_pong_games_on_team_2_id"
+
+  create_table "ping_pong_match_results", force: :cascade do |t|
+    t.integer  "winner_id"
+    t.integer  "points_per_game"
+    t.string   "team_sizes"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
 
   create_table "players", force: :cascade do |t|
     t.string   "email",                        null: false
